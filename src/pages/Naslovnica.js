@@ -1,10 +1,8 @@
-import Footer from "../components/Footer";
-import Nav from "../components/Nav";
 
-const Home = () => {
+
+const Naslovnica = () => {
   return (
     <>
-      <Nav />
 
       <section className="hero d-flex align-items-center text-white mb-5">
         <div className="container">
@@ -150,9 +148,8 @@ const Home = () => {
         </div>
       </section>
 
-      <Footer />
     </>
   );
 };
 
-export default Home;
+export default Naslovnica;

@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
+
+
 const Nav = () => {
   return (
      <nav className="navbar navbar-expand-lg navbar-light bg-ligh">
         <div className="container">
-          <a className="navbar-brand" href="/index.html">
+          <Link className="navbar-brand" to="/">
             <img src="img/header/logo.svg" alt="logo" height="12" />
-          </a>
+          </Link>
 
           <button
             className="navbar-toggler"
@@ -19,112 +22,31 @@ const Nav = () => {
           </button>
 
           <div className="navbar-collapse collapse show" id="mainNavbar">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item dropdown text-end">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="ddElectric"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  ELECTRIC
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="ddElectric">
-                  <li>
-                    <a className="dropdown-item text-end" href="#">
-                      Electric Ace
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item text-end" href="#">
-                      Electric Ivy
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item dropdown text-end">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="ddElectric"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  CITY
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="ddElectric">
-                  <li>
-                    <a className="dropdown-item text-end" href="#">
-                      Caféracer
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item text-end" href="#">
-                      Robyn
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item dropdown text-end">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="ddElectric"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  KIDS
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="ddElectric">
-                  <li>
-                    <a className="dropdown-item text-end" href="#">
-                      El Bear
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item text-end" href="#">
-                      El Robin
-                    </a>
-                  </li>
-                </ul>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-uppercase">
+              <li className="nav-item">
+                <Link className="nav-link text-end" to="/">
+                  Naslovnica
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-end" href="#">
-                  ACCESSORIES
-                </a>
+                <Link className="nav-link text-end" to="/o-nama">
+                  O nama
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-end" href="#">
-                  STORES
-                </a>
+                <Link className="nav-link text-end" to="/usluge">
+                  Usluge
+                </Link>
               </li>
-              <li className="nav-item dropdown text-end">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="ddElectric"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  LEASING
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="ddElectric">
-                  <li>
-                    <a className="dropdown-item text-end" href="#">
-                      Private
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item text-end" href="#">
-                      Business
-                    </a>
-                  </li>
-                </ul>
+              <li className="nav-item">
+                <Link className="nav-link text-end" to="/blog">
+                  Blog
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link text-end" to="/kontakt">
+                  Kontakt
+                </Link>
               </li>
             </ul>
 
