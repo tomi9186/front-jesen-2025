@@ -1,4 +1,8 @@
 import {useState, useEffect} from "react";
+import FeaturedImg from "../components/FeaturedImg";
+import HeroSection from "../components/HeroSection";
+
+const BASE_URL = process.env.REACT_APP_API_URL
 
 const Naslovnica = () => {
 
@@ -7,7 +11,7 @@ const Naslovnica = () => {
   useEffect(() => {
     const fetchPage = async() => {
       try{
-        const response = await fetch('https://front2.edukacija.online/backend/wp-json/wp/v2/pages/21');
+        const response = await fetch(`${BASE_URL}v2/pages/21?_embed`);
         if(!response.ok){
           throw new Error('Ne mogu povući podatke');
         }
@@ -23,7 +27,15 @@ const Naslovnica = () => {
   if(!page) return <p>Učitavanje...</p>;
 
   return (
-    <div dangerouslySetInnerHTML={{ __html:page.content.rendered }} />
+    <>
+      <HeroSection 
+      stranica={page} 
+      fallback="https://placehold.co/600x400" 
+      size="full" 
+      />
+      {/* <FeaturedImg page={page} fallback="https://placehold.co/600x400" size="full"  /> */}
+      <div dangerouslySetInnerHTML={{ __html:page.content.rendered }} />
+    </>
   );
 };
 

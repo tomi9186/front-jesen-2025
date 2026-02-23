@@ -3,13 +3,15 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 
+const BASE_URL = process.env.REACT_APP_API_URL
+
 const LokaliSingle = () => {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
 
   useEffect(() => {
     fetch(
-      `https://front2.edukacija.online/backend/wp-json/wp/v2/lokal?slug=${slug}&_embed`,
+      `${BASE_URL}lokal?slug=${slug}&_embed`,
     )
       .then((response) => response.json())
       .then((data) => setPost(data[0]));

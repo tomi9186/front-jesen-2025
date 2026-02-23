@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import "./Blog.css";
 
+const BASE_URL = process.env.REACT_APP_API_URL
+
 const Lokali = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -12,7 +14,7 @@ const Lokali = () => {
   const [izabranaDjelatnost, setIzabranaDjelatnost] = useState("");
 
   useEffect(() => {
-    fetch("https://front2.edukacija.online/backend/wp-json/wp/v2/djelatnost")
+    fetch(`${BASE_URL}v2/djelatnost`)
       .then((response) => response.json())
       .then((data) => setDjelatnosti(data));
   }, []);
@@ -20,7 +22,7 @@ const Lokali = () => {
   useEffect(() => {
     setLoading(true);
 
-    let url = "https://front2.edukacija.online/backend/wp-json/wp/v2/lokal?_embed";
+    let url = `${BASE_URL}v2/lokal?_embed`;
     if (izabranaDjelatnost) url += "&djelatnost=" + izabranaDjelatnost;
 
     fetch(url)

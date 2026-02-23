@@ -2,6 +2,9 @@ import "./Blog.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
+import Author from "../components/Author";
+
+const BASE_URL = process.env.REACT_APP_API_URL
 
 const BlogSingle = () => {
   const { slug } = useParams();
@@ -9,7 +12,7 @@ const BlogSingle = () => {
 
   useEffect(() => {
     fetch(
-      `https://front2.edukacija.online/backend/wp-json/wp/v2/posts?slug=${slug}&_embed`,
+      `${BASE_URL}v2/posts?slug=${slug}&_embed`,
     )
       .then((response) => response.json())
       .then((data) => setPost(data[0]));
@@ -37,11 +40,7 @@ const BlogSingle = () => {
               <div class="post-heading">
                 <h1>{post.title.rendered}</h1>
                 <h2 class="subheading"></h2>
-                <span class="meta">
-                  Autor:
-                  <a href="#!">{post._embedded.author[0].name}</a>,{" "}
-                  {new Date(post.date).toLocaleDateString("hr-HR")}
-                </span>
+                <Author post={post} />
               </div>
             </div>
           </div>

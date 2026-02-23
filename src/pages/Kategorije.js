@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import ReactPaginate from "react-paginate";
 import ScrollToTop from "../components/ScrollToTop";
+import BlogPost from "../components/BlogPost";
+
+const BASE_URL = process.env.REACT_APP_API_URL
 
 const Kategorije = () => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +17,7 @@ const Kategorije = () => {
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
-    fetch("https://front2.edukacija.online/backend/wp-json/wp/v2/categories")
+    fetch(`${BASE_URL}v2/categories`)
       .then((response) => response.json())
       .then((data) => setCategory(data));
   }, []);
@@ -26,7 +29,7 @@ const Kategorije = () => {
     const per_page = 3;
 
     fetch(
-      `https://front2.edukacija.online/backend/wp-json/wp/v2/posts?categories=${selectedCategory}&per_page=${per_page}&current_page=${currentPage + 1}&_embed`,
+      `${BASE_URL}v2/posts?categories=${selectedCategory}&per_page=${per_page}&current_page=${currentPage + 1}&_embed`,
     )
       .then((response) => {
         const totalPages = response.headers.get("X-WP-TotalPages");
@@ -64,30 +67,9 @@ const Kategorije = () => {
         </div>
         <div className="row">
           {posts.map((post) => {
-            const image =
-              post._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes
-                ?.full?.source_url;
-
+        
             return (
-              <div key={post.id} className="col-md-4 mb-4 blog-post">
-                {image && (
-                  <img src={image} className="mb-3" alt={post.title.rendered} />
-                )}
-
-                <h2>{post.title.rendered}</h2>
-
-                <div
-                  dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-                />
-
-                <p>
-                  {post._embedded?.author?.[0]?.name} |{" "}
-                  {new Date(post.date).toLocaleDateString("hr-HR", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </p>
-              </div>
+              <BlogPost key={post.id} post={post} />
             );
           })}
         </div>
