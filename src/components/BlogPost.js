@@ -8,7 +8,7 @@ const BlogPost = ({ post }) => {
       ?.source_url;
 
   return (
-    <div key={post.id} className="col-md-4 mb-4 blog-post">
+    <div key={post.id} className="col-md-4 mb-5 blog-post">
       {image && (
         <Link to={"/blog/" + post.slug}>
           <img src={image} className="mb-3" alt={post.title.rendered} />
@@ -20,6 +20,10 @@ const BlogPost = ({ post }) => {
       <div dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }} />
 
       <Author post={post} author={false} />
+
+      <Link to={"/blog/" + post.slug} className="btn btn-success btn-lg">
+        Pročitaj više
+      </Link>
     </div>
   );
 };

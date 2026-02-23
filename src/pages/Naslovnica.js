@@ -11,7 +11,7 @@ const Naslovnica = () => {
   useEffect(() => {
     const fetchPage = async() => {
       try{
-        const response = await fetch(`${BASE_URL}v2/pages/21?_embed`);
+        const response = await fetch(BASE_URL + 'v2/pages/?_embed');
         if(!response.ok){
           throw new Error('Ne mogu povući podatke');
         }
@@ -29,9 +29,9 @@ const Naslovnica = () => {
   return (
     <>
       <HeroSection 
-      stranica={page} 
-      fallback="https://placehold.co/600x400" 
-      size="full" 
+        stranica={page} 
+        fallback="https://placehold.co/600x400" 
+        size="full" 
       />
       {/* <FeaturedImg page={page} fallback="https://placehold.co/600x400" size="full"  /> */}
       <div dangerouslySetInnerHTML={{ __html:page.content.rendered }} />
