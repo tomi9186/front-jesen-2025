@@ -1,9 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Nav = () => {
   const location = useLocation();
   const [name, setName] = useState(null);
+  const { cart } = useContext(CartContext);
+
+  // Izračunaj ukupnu količinu svih proizvoda
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     const user = localStorage.getItem("username");
@@ -105,8 +110,13 @@ const Nav = () => {
               )}
             </li>
             <li className="nav-item">
-              <Link className="nav-link" href="/cart" title="Cart">
+              <Link className="nav-link position-relative" to="/cart" title="Cart">
                 <img src="img/header/cart.svg" alt="Cart" className="icon-lg" />
+                {totalQuantity > 0 && (
+                  <span className="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                    {totalQuantity}
+                  </span>
+                )}
               </Link>
             </li>
           </ul>

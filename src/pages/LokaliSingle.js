@@ -2,6 +2,9 @@ import "./Blog.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
+
 
 const BASE_URL = process.env.REACT_APP_API_URL
 
@@ -47,6 +50,14 @@ const LokaliSingle = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="metadata mb-4">
+           <FontAwesomeIcon icon={faLocationDot} className="pt-1" /> 
+           { post.acf.adresa ? post.acf.adresa : "Nema adrese" }
+           <div
+                dangerouslySetInnerHTML={{ __html: post.acf.radno_vrijeme }}
+              ></div>
       </div>
 
       <article class="mb-4">

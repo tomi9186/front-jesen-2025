@@ -14,7 +14,7 @@ const Lokali = () => {
   const [izabranaDjelatnost, setIzabranaDjelatnost] = useState("");
 
   useEffect(() => {
-    fetch(`${BASE_URL}v2/djelatnost`)
+    fetch(`${BASE_URL}djelatnost`)
       .then((response) => response.json())
       .then((data) => setDjelatnosti(data));
   }, []);
@@ -22,7 +22,7 @@ const Lokali = () => {
   useEffect(() => {
     setLoading(true);
 
-    let url = `${BASE_URL}v2/lokal?_embed`;
+    let url = `${BASE_URL}lokal?_embed`;
     if (izabranaDjelatnost) url += "&djelatnost=" + izabranaDjelatnost;
 
     fetch(url)

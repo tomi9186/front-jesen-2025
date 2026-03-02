@@ -28,44 +28,54 @@ import Settings from "./pages/admin/Settings";
 import AuthorsTable from "./pages/AuthorsTable";
 import AuthorSingle from "./pages/AuthorSingle";
 
+import Shop from "./pages/shop/Shop";
+import Cart from "./pages/shop/Cart";
+import Checkout from "./pages/shop/Checkout";
+
+import { CartProvider } from "./context/CartContext";
+
 
 function App() {
   return (
-    <BrowserRouter>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<Naslovnica />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogSingle />} />
-        <Route path="/o-nama" element={<Onama />} />
-        <Route path="/usluge" element={<Usluge />} />
-        <Route path="/kontakt" element={<Kontakt />} />
-        <Route path="/kategorije" element={<Kategorije />} />
+    <CartProvider>
+      <BrowserRouter>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Naslovnica />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogSingle />} />
+          <Route path="/o-nama" element={<Onama />} />
+          <Route path="/usluge" element={<Usluge />} />
+          <Route path="/kontakt" element={<Kontakt />} />
+          <Route path="/kategorije" element={<Kategorije />} />
 
-        <Route path="/lokali" element={<Lokali />} />
-        <Route path="/lokal/:slug" element={<LokaliSingle />} />
+          <Route path="/lokali" element={<Lokali />} />
+          <Route path="/lokal/:slug" element={<LokaliSingle />} />
 
-        <Route path="/profil" element={<Profil />} />
-        <Route path="/korisnici" element={<Korisnici />} />
-        <Route path="/tecaj" element={<Tecaj />} />
+          <Route path="/profil" element={<Profil />} />
+          <Route path="/korisnici" element={<Korisnici />} />
+          <Route path="/tecaj" element={<Tecaj />} />
 
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
 
-        <Route path="/autori" element={<AuthorsTable />} />
-        <Route path="/autor/:nickname" element={<AuthorSingle /> } />
+          <Route path="/autori" element={<AuthorsTable />} />
+          <Route path="/autor/:nickname" element={<AuthorSingle /> } />
 
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="mydetails" element={<MyDetails />} />
-          <Route path="myposts" element={<MyPosts />} />
-          <Route path="settings" element={<Settings />} />
-        </Route>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="mydetails" element={<MyDetails />} />
+            <Route path="myposts" element={<MyPosts />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
 
-        
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
 
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 
