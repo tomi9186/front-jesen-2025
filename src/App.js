@@ -28,6 +28,10 @@ import Settings from "./pages/admin/Settings";
 import AuthorsTable from "./pages/AuthorsTable";
 import AuthorSingle from "./pages/AuthorSingle";
 
+import Shop from "./pages/shop/Shop";
+import Cart from "./pages/shop/Cart";
+import Checkout from "./pages/shop/Checkout"; 
+
 
 function App() {
   return (
@@ -60,6 +64,10 @@ function App() {
           <Route path="myposts" element={<MyPosts />} />
           <Route path="settings" element={<Settings />} />
         </Route>
+
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} /> 
 
         
 

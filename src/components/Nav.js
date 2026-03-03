@@ -105,7 +105,7 @@ const Nav = () => {
               )}
             </li>
             <li className="nav-item">
-              <Link className="nav-link" href="/cart" title="Cart">
+              <Link className="nav-link" to="/cart" title="Cart">
                 <img src="img/header/cart.svg" alt="Cart" className="icon-lg" />
               </Link>
             </li>
