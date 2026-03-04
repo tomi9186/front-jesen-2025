@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import Author from "../components/Author";
 
+import Yoast from "../components/Yoast";
+
 const BASE_URL = process.env.REACT_APP_API_URL
 
 const BlogSingle = () => {
@@ -23,6 +25,8 @@ const BlogSingle = () => {
   }
 
   return (
+    <>
+    <Yoast yoastHeadJson={post.yoast_head_json} />
     <div className="blog-single">
       <div
         class="masthead"
@@ -59,6 +63,7 @@ const BlogSingle = () => {
         </div>
       </article>
     </div>
+    </>
   );
 };
 

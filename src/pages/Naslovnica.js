@@ -2,12 +2,15 @@ import {useState, useEffect} from "react";
 import FeaturedImg from "../components/FeaturedImg";
 import HeroSection from "../components/HeroSection";
 
+import Yoast from './../components/Yoast';
+
 
 const BASE_URL = process.env.REACT_APP_API_URL
 
 const Naslovnica = () => {
 
   const[page, setPage] = useState(null);
+  const [yoastHeadJson, setYoastHeadJson] = useState(null);
 
   useEffect(() => {
     const fetchPage = async() => {
@@ -18,6 +21,7 @@ const Naslovnica = () => {
         }
         const data = await response.json();
         setPage(data);
+        setYoastHeadJson(data?.yoast_head_json)
       } catch (err) {
         console.log(err.message);
       }
@@ -29,6 +33,7 @@ const Naslovnica = () => {
 
   return (
     <>
+      <Yoast yoastHeadJson={yoastHeadJson} />
       <HeroSection 
         stranica={page} 
         fallback="https://placehold.co/600x400" 
