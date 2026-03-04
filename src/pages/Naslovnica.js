@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import FeaturedImg from "../components/FeaturedImg";
 import HeroSection from "../components/HeroSection";
 
+
 const BASE_URL = process.env.REACT_APP_API_URL
 
 const Naslovnica = () => {

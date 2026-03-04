@@ -22,7 +22,7 @@ const Lokali = () => {
   useEffect(() => {
     setLoading(true);
 
-    let url = `${BASE_URL}lokal?_embed`;
+    let url = `${BASE_URL}v2/lokal?_embed`;
     if (izabranaDjelatnost) url += "&djelatnost=" + izabranaDjelatnost;
 
     fetch(url)
