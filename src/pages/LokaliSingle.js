@@ -11,7 +11,7 @@ const LokaliSingle = () => {
 
   useEffect(() => {
     fetch(
-      `${BASE_URL}lokal?slug=${slug}&_embed`,
+      `${BASE_URL}v2/lokal?slug=${slug}&_embed`,
     )
       .then((response) => response.json())
       .then((data) => setPost(data[0]));

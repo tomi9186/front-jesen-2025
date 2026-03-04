@@ -53,8 +53,8 @@ const Nav = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-end" to="/usluge">
-                Usluge
+              <Link className="nav-link text-end" to="/shop">
+                Shop
               </Link>
             </li>
             <li className="nav-item">

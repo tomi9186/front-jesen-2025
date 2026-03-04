@@ -11,7 +11,7 @@ const Naslovnica = () => {
   useEffect(() => {
     const fetchPage = async() => {
       try{
-        const response = await fetch(BASE_URL + 'v2/pages/?_embed');
+        const response = await fetch(BASE_URL + 'v2/pages/21?_embed');
         if(!response.ok){
           throw new Error('Ne mogu povući podatke');
         }

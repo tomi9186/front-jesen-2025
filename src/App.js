@@ -35,7 +35,7 @@ import Checkout from "./pages/shop/Checkout";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter /* basename="/tsuk" */>
       <Nav />
       <Routes>
         <Route path="/" element={<Naslovnica />} />
