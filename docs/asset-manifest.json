@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/tsuk/static/css/main.141da9c6.css",
-    "main.js": "/tsuk/static/js/main.6502a1e8.js",
-    "static/media/page-bg.jpg": "/tsuk/static/media/page-bg.7786f7ee737e477e7d28.jpg",
-    "static/media/home-2-products.png": "/tsuk/static/media/home-2-products.d11287c00c9ab5c0bb5f.png",
-    "static/media/home-3-products.png": "/tsuk/static/media/home-3-products.8c97c7ae46f820b5929b.png",
-    "static/media/hero-products.png": "/tsuk/static/media/hero-products.fe9963a99cd4c3cf940c.png",
-    "static/media/home-2.jpg": "/tsuk/static/media/home-2.c88ca9146b76df613dd9.jpg",
-    "static/media/hero.jpg": "/tsuk/static/media/hero.707076bf3866173c3ce1.jpg",
-    "static/media/arrow.svg": "/tsuk/static/media/arrow.08e4b3a556e7ae1eb125.svg",
-    "index.html": "/tsuk/index.html",
-    "main.141da9c6.css.map": "/tsuk/static/css/main.141da9c6.css.map",
-    "main.6502a1e8.js.map": "/tsuk/static/js/main.6502a1e8.js.map"
+    "main.css": "/front-jesen-2025/static/css/main.73f6f59a.css",
+    "main.js": "/front-jesen-2025/static/js/main.f2249abb.js",
+    "static/media/page-bg.jpg": "/front-jesen-2025/static/media/page-bg.7786f7ee737e477e7d28.jpg",
+    "static/media/home-2-products.png": "/front-jesen-2025/static/media/home-2-products.d11287c00c9ab5c0bb5f.png",
+    "static/media/home-3-products.png": "/front-jesen-2025/static/media/home-3-products.8c97c7ae46f820b5929b.png",
+    "static/media/hero-products.png": "/front-jesen-2025/static/media/hero-products.fe9963a99cd4c3cf940c.png",
+    "static/media/home-2.jpg": "/front-jesen-2025/static/media/home-2.c88ca9146b76df613dd9.jpg",
+    "static/media/hero.jpg": "/front-jesen-2025/static/media/hero.707076bf3866173c3ce1.jpg",
+    "static/media/arrow.svg": "/front-jesen-2025/static/media/arrow.08e4b3a556e7ae1eb125.svg",
+    "index.html": "/front-jesen-2025/index.html",
+    "main.73f6f59a.css.map": "/front-jesen-2025/static/css/main.73f6f59a.css.map",
+    "main.f2249abb.js.map": "/front-jesen-2025/static/js/main.f2249abb.js.map"
   },
   "entrypoints": [
-    "static/css/main.141da9c6.css",
-    "static/js/main.6502a1e8.js"
+    "static/css/main.73f6f59a.css",
+    "static/js/main.f2249abb.js"
   ]
 }
