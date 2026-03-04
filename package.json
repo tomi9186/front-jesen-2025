@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build  && react-snap",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "forest": "react-scripts start"
@@ -49,5 +49,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-snap": "^1.23.0"
+  },
+  "reactSnap": {
+    "source": "build",
+    "minifyHtml": true,
+    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
+    "delay": 1000,
+    "publicPath": "/front-jesen-2025/"
   }
 }

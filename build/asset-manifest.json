@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/front-jesen-2025/static/css/main.73f6f59a.css",
+    "main.js": "/front-jesen-2025/static/js/main.d520ad3a.js",
+    "static/media/page-bg.jpg": "/front-jesen-2025/static/media/page-bg.7786f7ee737e477e7d28.jpg",
+    "static/media/home-2-products.png": "/front-jesen-2025/static/media/home-2-products.d11287c00c9ab5c0bb5f.png",
+    "static/media/home-3-products.png": "/front-jesen-2025/static/media/home-3-products.8c97c7ae46f820b5929b.png",
+    "static/media/hero-products.png": "/front-jesen-2025/static/media/hero-products.fe9963a99cd4c3cf940c.png",
+    "static/media/home-2.jpg": "/front-jesen-2025/static/media/home-2.c88ca9146b76df613dd9.jpg",
+    "static/media/hero.jpg": "/front-jesen-2025/static/media/hero.707076bf3866173c3ce1.jpg",
+    "static/media/arrow.svg": "/front-jesen-2025/static/media/arrow.08e4b3a556e7ae1eb125.svg",
+    "index.html": "/front-jesen-2025/index.html",
+    "main.73f6f59a.css.map": "/front-jesen-2025/static/css/main.73f6f59a.css.map",
+    "main.d520ad3a.js.map": "/front-jesen-2025/static/js/main.d520ad3a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.73f6f59a.css",
+    "static/js/main.d520ad3a.js"
+  ]
+}
