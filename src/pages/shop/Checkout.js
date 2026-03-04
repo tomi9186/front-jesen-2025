@@ -1,212 +1,220 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router";
-import { CartContext } from "../../context/CartContext";
+import { useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
 
 const Checkout = () => {
-  const navigate = useNavigate();
-  const { cart, setCart } = useContext(CartContext);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    postalCode: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+    const [cart, setCart] = useState([]);
+    const [orderSent, setOrderSent] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [orderId, setOrderId] = useState("");
 
-  const totalPrice = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        postal: ""
+    });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
+    useEffect(() => {
+        const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+        setCart(storedCart);
+    }, []);
 
-    // Simulacija obrade narudžbe
-    setTimeout(() => {
-      setCart([]);
-      alert("Narudžba je uspješno obrađena!");
-      navigate("/");
-    }, 1500);
-  };
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
-  if (cart.length === 0) {
+    const isFormValid = () => {
+        return Object.values(formData).every(value => value.trim() !== "");
+    };
+
+    const getTotalPrice = () => {
+        return cart.reduce((total, item) => {
+            return total + (item.price * item.quantity);
+        }, 0).toFixed(2);
+    };
+
+    const generateOrderId = () => {
+        return "ORD-" + Math.floor(100000 + Math.random() * 900000);
+    };
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+
+        if(!isFormValid()){
+            alert("Molimo ispunite sva polja!");
+            return;
+        }
+
+        setLoading(true);
+
+        const newOrderId = generateOrderId();
+        setOrderId(newOrderId);
+
+        const templateParams = {
+            order_id: newOrderId,
+            email: formData.email,
+            customer_name: formData.name,
+
+            orders: cart.map(item => ({
+                name: item.title,
+                units: item.quantity,
+                price: (item.price * item.quantity).toFixed(2),
+                image_url: item.thumbnail
+            })),
+
+            cost: {
+                shipping: "0.00",
+                tax: "0.00",
+                total: getTotalPrice()
+            }
+        };
+
+        try {
+
+            await emailjs.send(
+                "service_x0ibv9n",
+                "template_9myrh84",
+                templateParams,
+                "UtWB2MoCq2a9Guv0x"
+            );
+
+            localStorage.removeItem("cart");
+            setOrderSent(true);
+            setCart([]);
+
+        } catch (error) {
+            alert("Greška pri slanju narudžbe!");
+        }
+
+        setLoading(false);
+    };
+
+    if(orderSent){
+        return(
+            <div className="container mt-5 text-center">
+                <div className="card p-5 shadow">
+                    <h2 className="text-success mb-3">
+                        ✅ Narudžba uspješno poslana!
+                    </h2>
+                    <h4>ID narudžbe:</h4>
+                    <h3 className="fw-bold">{orderId}</h3>
+                </div>
+            </div>
+        )
+    }
+
     return (
-      <div className="container my-5">
-        <div className="alert alert-warning">
-          Nema proizvoda u košarici. Vrati se u <a href="/shop">shop</a>.
+        <div className="container mt-5 pb-5">
+
+            <div className="row">
+
+                <div className="col-md-7">
+                    <div className="card shadow p-4">
+
+                        <h4 className="mb-4">Podaci za dostavu</h4>
+
+                        <form onSubmit={handleSubmit}>
+
+                            <input 
+                                type="text"
+                                name="name"
+                                placeholder="Ime i prezime"
+                                className="form-control mb-3"
+                                onChange={handleChange}
+                            />
+
+                            <input 
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                className="form-control mb-3"
+                                onChange={handleChange}
+                            />
+
+                            <input 
+                                type="text"
+                                name="phone"
+                                placeholder="Telefon"
+                                className="form-control mb-3"
+                                onChange={handleChange}
+                            />
+
+                            <input 
+                                type="text"
+                                name="address"
+                                placeholder="Adresa"
+                                className="form-control mb-3"
+                                onChange={handleChange}
+                            />
+
+                            <input 
+                                type="text"
+                                name="city"
+                                placeholder="Grad"
+                                className="form-control mb-3"
+                                onChange={handleChange}
+                            />
+
+                            <input 
+                                type="text"
+                                name="postal"
+                                placeholder="Poštanski broj"
+                                className="form-control mb-4"
+                                onChange={handleChange}
+                            />
+
+                            <button 
+                                className="btn btn-success w-100"
+                                disabled={!isFormValid() || loading}
+                            >
+                                {loading ? "Slanje..." : "Završi narudžbu"}
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <div className="col-md-5">
+                    <div className="card shadow p-4">
+
+                        <h4 className="mb-4">Pregled narudžbe</h4>
+
+                        {cart.map(item => (
+                            <div 
+                                key={item.id}
+                                className="d-flex justify-content-between border-bottom py-2"
+                            >
+                                <span>
+                                    {item.title} x {item.quantity}
+                                </span>
+                                <span>
+                                    {(item.price * item.quantity).toFixed(2)} €
+                                </span>
+                            </div>
+                        ))}
+
+                        <hr />
+
+                        <h5 className="d-flex justify-content-between">
+                            <span>Ukupno:</span>
+                            <span>{getTotalPrice()} €</span>
+                        </h5>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="container my-5">
-      <h1 className="mb-4">Checkout</h1>
-
-      <div className="row">
-        <div className="col-md-6 mb-4">
-          <h3 className="mb-3">Podaci za dostavu</h3>
-          {submitted && (
-            <div className="alert alert-success">
-              Obrađujem vašu narudžbu...
-            </div>
-          )}
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label className="form-label">Ime</label>
-              <input
-                type="text"
-                className="form-control"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Prezime</label>
-              <input
-                type="text"
-                className="form-control"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Email</label>
-              <input
-                type="email"
-                className="form-control"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Telefon</label>
-              <input
-                type="tel"
-                className="form-control"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Adresa</label>
-              <input
-                type="text"
-                className="form-control"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Grad</label>
-              <input
-                type="text"
-                className="form-control"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Poštanski broj</label>
-              <input
-                type="text"
-                className="form-control"
-                name="postalCode"
-                value={formData.postalCode}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-primary btn-lg w-100"
-              disabled={submitted}
-            >
-              {submitted ? "Obrada..." : "Završi narudžbu"}
-            </button>
-          </form>
-        </div>
-
-        <div className="col-md-6">
-          <h3 className="mb-3">Pregled narudžbe</h3>
-
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title">Proizvodi</h5>
-
-              <table className="table table-sm">
-                <tbody>
-                  {cart.map((item) => (
-                    <tr key={item.id}>
-                      <td style={{ width: "60px" }}>
-                        {item.image && (
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            style={{
-                              width: "100%",
-                              height: "50px",
-                              objectFit: "cover",
-                            }}
-                          />
-                        )}
-                      </td>
-                      <td>{item.name}</td>
-                      <td className="text-end">
-                        x{item.quantity} = ${(item.price * item.quantity).toFixed(2)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              <hr />
-
-              <div className="d-flex justify-content-between align-items-center">
-                <h5>Ukupna cijena:</h5>
-                <h5 className="fw-bold">${totalPrice.toFixed(2)}</h5>
-              </div>
-            </div>
-          </div>
-
-          <a href="/cart" className="btn btn-secondary mt-3 w-100">
-            Vrati se na košaricu
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-};
+    )
+}
 
 export default Checkout;

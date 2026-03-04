@@ -58,8 +58,8 @@ const Nav = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-end" to="/usluge">
-                Usluge
+              <Link className="nav-link text-end" to="/shop">
+                Shop
               </Link>
             </li>
             <li className="nav-item">
@@ -110,7 +110,7 @@ const Nav = () => {
               )}
             </li>
             <li className="nav-item">
-              <Link className="nav-link position-relative" to="/cart" title="Cart">
+              <Link className="nav-link" to="/cart" title="Cart">
                 <img src="img/header/cart.svg" alt="Cart" className="icon-lg" />
                 {totalQuantity > 0 && (
                   <span className="badge bg-danger position-absolute top-0 start-100 translate-middle">

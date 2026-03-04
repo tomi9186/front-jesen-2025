@@ -30,24 +30,21 @@ import AuthorSingle from "./pages/AuthorSingle";
 
 import Shop from "./pages/shop/Shop";
 import Cart from "./pages/shop/Cart";
-import Checkout from "./pages/shop/Checkout";
-
-import { CartProvider } from "./context/CartContext";
+import Checkout from "./pages/shop/Checkout"; 
 
 
 function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Naslovnica />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogSingle />} />
-          <Route path="/o-nama" element={<Onama />} />
-          <Route path="/usluge" element={<Usluge />} />
-          <Route path="/kontakt" element={<Kontakt />} />
-          <Route path="/kategorije" element={<Kategorije />} />
+    <BrowserRouter /* basename="/tsuk" */>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Naslovnica />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogSingle />} />
+        <Route path="/o-nama" element={<Onama />} />
+        <Route path="/usluge" element={<Usluge />} />
+        <Route path="/kontakt" element={<Kontakt />} />
+        <Route path="/kategorije" element={<Kategorije />} />
 
           <Route path="/lokali" element={<Lokali />} />
           <Route path="/lokal/:slug" element={<LokaliSingle />} />
@@ -68,14 +65,15 @@ function App() {
             <Route path="settings" element={<Settings />} />
           </Route>
 
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} /> 
+
+        
 
         </Routes>
         <Footer />
       </BrowserRouter>
-    </CartProvider>
   );
 }
 

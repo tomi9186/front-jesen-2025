@@ -1,111 +1,67 @@
-import { useState, useContext, useEffect } from "react";
-import { Link } from "react-router";
-import { CartContext } from "../../context/CartContext";
+import {useState, useEffect} from "react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Shop = () => {
-  const { cart, setCart } = useContext(CartContext);
-  const [showMessage, setShowMessage] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("https://dummyjson.com/products");
-        const data = await response.json();
-        setProducts(data.products);
-        setLoading(false);
-      } catch (error) {
-        console.log("Greška pri dohvaćanju proizvoda:", error);
-        setLoading(false);
-      }
-    };
+    const[products, setProducts] = useState([]);
+    
+    useEffect(() => {
+        const fetchPage = async() => {
+          try{
+            const response = await fetch('https://dummyjson.com/products');
+            if(!response.ok){
+              throw new Error('Ne mogu povući podatke');
+            }
+            const data = await response.json();
+            setProducts(data.products);
+          } catch (err) {
+            console.log(err.message);
+          }
+        }
+        fetchPage();
+    }, []);
 
-    fetchProducts();
-  }, []);
-
-  const addToCart = (product) => {
-    const existingProduct = cart.find((item) => item.id === product.id);
-    const productToAdd = {
-      id: product.id,
-      name: product.title || product.name,
-      price: product.price,
-      description: product.description,
-      image: product.images && product.images[0] ? product.images[0] : null,
-      quantity: 1,
-    };
-
-    if (existingProduct) {
-      setCart(
-        cart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...productToAdd, quantity: 1 }]);
+    const addToCart = (product) => {
+        // Čitaj postojeću košaricu iz localStorage-a
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Provjeri je li proizvod već u košarici
+        const existingProduct = cart.find(item => item.id === product.id);
+        
+        if (existingProduct) {
+            // Ako postoji, povećaj količinu
+            existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+        } else {
+            // Ako ne postoji, dodaj proizvod s količinom 1
+            product.quantity = 1;
+            cart.push(product);
+        }
+        
+        // Spremi ažuriranu košaricu u localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
 
-    setShowMessage(true);
-    setTimeout(() => setShowMessage(false), 2000);
-  };
+    if(!products) return <p>Učitavanje...</p>;
 
-  return (
-    <div className="container my-5">
-      <h1 className="mb-5">Shop</h1>
-
-      {showMessage && (
-        <div className="alert alert-success alert-dismissible fade show">
-          Proizvod dodan u košaricu!
-        </div>
-      )}
-
-      {loading ? (
-        <div className="text-center">
-          <p>Učitavanje proizvoda...</p>
-        </div>
-      ) : (
-        <>
-          <div className="row g-4">
-            {products.map((product) => (
-              <div key={product.id} className="col-md-4">
-                <div className="card h-100">
-                  {product.images && product.images[0] && (
-                    <img
-                      src={product.images[0]}
-                      className="card-img-top"
-                      alt={product.title}
-                      style={{ height: "250px", objectFit: "cover" }}
-                    />
-                  )}
-                  <div className="card-body d-flex flex-column">
-                    <h5 className="card-title">{product.title}</h5>
-                    <p className="card-text text-muted">{product.description}</p>
-                    <p className="card-text fw-bold mt-auto">
-                      ${product.price.toFixed(2)}
-                    </p>
-                    <button
-                      onClick={() => addToCart(product)}
-                      className="btn btn-primary"
-                    >
-                      Dodaj u košaricu
+    return (
+        <div className="container">
+            <h1>Shop</h1>
+            <div className="row">
+            { products.map(product => (
+                <div className="col-md-4" key={product.id}>
+                    <img src={product.images[0]} alt={product.title} />
+                    <h3 key={product.id}>{product.title}</h3>
+                    <button className="btn btn-success" onClick={() => addToCart(product)}>
+                         {product.price} EUR
+                         <FontAwesomeIcon icon={faCartPlus} className="pt-1 ms-2" />
                     </button>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-5">
-            <Link to="/cart" className="btn btn-secondary">
-              Vidi košaricu ({cart.length})
-            </Link>
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
+            )) }
+            </div>
+        </div>
+    )
+}
 
 export default Shop;
